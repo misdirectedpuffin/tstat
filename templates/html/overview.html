@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    
+    <h3>{{ name }}</h1>
+    <div class="row">
+        <div class="col-md-8">
+        <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">{{ grade_form.pupil }}</div>
+  <div class="panel-body">
+    <div class="col-md-4">
+            <form action="/overview/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">Homework due between {{ grade_form.start_date }} and {{ grade_form.end_date }}</div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+  </div>
+
+  <!-- Table -->
+    <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Teacher</th>
+                    <th>Title</th>
+                    <th>Date Assigned</th>
+                    <th>Date Due</th>
+                    <th>Overdue</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.assignment.teacher.first_name }} {{ grade.assignment.teacher.last_name }}</td>
+                    <td>{{ grade.assignment.title }}</td>
+                    <td>{{ grade.assignment.date_assigned }}</td>               
+                    <td>{{ grade.assignment.date_due }}</td>                
+                    <td>{{ grade.assignment_overdue }}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        
+    </table>
+</div>
+        </div>
+    </div>
+    
+    
+
+{% endblock content %}

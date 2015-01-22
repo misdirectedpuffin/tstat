@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+    
+<h3>{{ name }}</h1>
+<div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-default">
+
+        <!-- Default panel contents -->
+        <div class="panel-heading"><h2 class="panel-title">Search for homework...</h3></div>
+            <div class="panel-body">
+                <div class="col-md-12">{% crispy assignment_form %}</div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        {% for item in assignment_group %}
+               
+            {% for pupil_name, assignments in item.items %}
+            <div class="panel panel-info">
+                <div class="panel-heading"><h3 class="panel-title">{{ pupil_name }}</h3></div> 
+                <div class="panel-body">
+                                     
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Teacher</th><th>Subject</th><th>Title</th><th>Date Assigned</th><th>Date Due</th><th>Overdue</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for a in assignments %}
+                            <tr>
+                                <td>{{ a.course.teacher.first_name }} {{ a.course.teacher.last_name }}</td>
+                                <td>{{ a.course.subject }}</td>
+                                <td>{{ a.title }}</td>
+                                <td>{{ a.date_assigned }}</td>               
+                                <td>{{ a.date_due }}</td>                
+                                <td>{{ a.assignment_overdue }}</td>
+                                
+                            </tr>
+                        {% endfor %}
+                        </tbody> 
+                                         
+                    </table>
+                    
+                </div>             
+
+            </div>
+            {% endfor %} 
+        {% endfor %}   
+
+    </div>
+    </div>
+</div>
+    
+    
+
+{% endblock content %}

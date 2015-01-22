@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+	<input type="search" name="pupil" id="input" class="form-control" value="" required="required" title="">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>assignment</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			{% for pupil in pupils %}
+			<tr>
+				<td>{{ pupil.last_name }}</td>
+				<td>{{ pupil.lname }}</td>				
+				<td>{{ pupil.assignment }}</td>				
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock content %}
